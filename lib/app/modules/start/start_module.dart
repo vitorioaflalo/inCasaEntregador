@@ -4,6 +4,7 @@ import 'package:incasaentregador/app/modules/historicoDetalhes/historicoDetalhes
 import 'package:incasaentregador/app/modules/home/home_module.dart';
 import 'package:incasaentregador/app/modules/home/home_page.dart';
 import 'package:incasaentregador/app/modules/home/home_store.dart';
+import 'package:incasaentregador/app/modules/login/login_module.dart';
 import 'package:incasaentregador/app/modules/perfil/perfil_module.dart';
 import 'package:incasaentregador/app/modules/relatorioPagamentos/relatorio_module.dart';
 import 'package:incasaentregador/app/modules/solicitacoesEntrega/solicitacoesEntrega_module.dart';
@@ -30,7 +31,7 @@ class StartModule extends Module {
       ModuleRoute('/historico', module: HistoricoModule()),
       ModuleRoute('/historicoDetalhes', module: HistoricoDetalhesModule()),
       ModuleRoute('/perfil', module: PerfilModule()),
-      ModuleRoute('/relatorio', module: RelatorioModule()),
+      ModuleRoute('/relatorio', module: RelatorioModule()), 
     ]),
   ];
 }

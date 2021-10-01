@@ -1,6 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:incasaentregador/app/models/entrega_model.dart';
 import 'package:incasaentregador/app/modules/entregaAtiva/entregaAtiva_store.dart';
 import 'package:flutter/material.dart';
+import 'package:incasaentregador/app/modules/entregaAtiva/helpers/getDelivery_helper.dart';
 import 'package:incasaentregador/app/modules/shared/widgets/checkbox_widget.dart';
 import 'package:incasaentregador/app/modules/shared/widgets/textDef_widget.dart';
 import 'package:incasaentregador/app/modules/shared/widgets/textFieldDef_widget.dart';
@@ -15,6 +17,17 @@ class EntregaAtivaPage extends StatefulWidget {
 
 class EntregaAtivaPageState extends State<EntregaAtivaPage> {
   final EntregaAtivaStore store = Modular.get();
+      List<EntregaModel> lista = [];
+
+  Future<List<EntregaModel>> getLista() async {
+    lista = await getDelivery();
+    return lista;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +50,12 @@ class EntregaAtivaPageState extends State<EntregaAtivaPage> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
+        child: FutureBuilder<List<EntregaModel>>(
+            future: getLista(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var data = snapshot.data[1];
+                return Padding(
           padding: const EdgeInsets.all(25.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,8 +142,15 @@ class EntregaAtivaPageState extends State<EntregaAtivaPage> {
               ))
             ],
           ),
+        );
+           } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                })
+        
         ),
-      ),
     );
   }
 }

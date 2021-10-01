@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:incasaentregador/app/models/historico_model.dart';
 import 'package:incasaentregador/app/modules/shared/widgets/checkbox_widget.dart';
 import 'package:incasaentregador/app/modules/shared/widgets/textDef_widget.dart';
 import 'package:incasaentregador/app/modules/shared/widgets/textFieldDef_widget.dart';
@@ -7,8 +8,9 @@ import 'package:flutter/material.dart';
 
 class SolicitacoesEntregaDetalhesPage extends StatefulWidget {
   final String title;
-  const SolicitacoesEntregaDetalhesPage(
-      {Key key, this.title = 'SolicitacoesEntregaDetalhesPage'})
+  final HistoricoModel historicomodel;
+  const SolicitacoesEntregaDetalhesPage(this.historicomodel,
+      {Key key, this.title = 'SolicitacoesEntregaDetalhesPage', })
       : super(key: key);
   @override
   SolicitacoesEntregaDetalhesPageState createState() =>
@@ -18,6 +20,11 @@ class SolicitacoesEntregaDetalhesPage extends StatefulWidget {
 class SolicitacoesEntregaDetalhesPageState
     extends State<SolicitacoesEntregaDetalhesPage> {
   final SolicitacoesEntregaDetalhesStore store = Modular.get();
+
+    @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,31 +54,31 @@ class SolicitacoesEntregaDetalhesPageState
             children: <Widget>[
               builderText(text: 'Estabelecimento'),
               Padding(padding: EdgeInsets.only(top: 10)),
-              builderTextField(hint: "Estabelecimento"),
+              builderTextField(hint: widget.historicomodel.razaoSocial ?? 'Indisponível'),
               Padding(padding: EdgeInsets.only(top: 20)),
               builderText(text: 'Nome do Cliente'),
               Padding(padding: EdgeInsets.only(top: 10)),
-              builderTextField(hint: "Nome Completo"),
+              builderTextField(hint:  widget.historicomodel.nomeDoCliente ?? 'Indisponível'),
               Padding(padding: EdgeInsets.only(top: 20)),
               builderText(text: 'Endereço'),
               Padding(padding: EdgeInsets.only(top: 10)),
-              builderTextField(hint: "Endereço"),
+              builderTextField(hint:  widget.historicomodel.logradouro?? 'Indisponível'),
               Padding(padding: EdgeInsets.only(top: 20)),
               builderText(text: 'Ponto de refêrencia'),
               Padding(padding: EdgeInsets.only(top: 10)),
-              builderTextField(hint: "Refêrencia"),
+              builderTextField(hint:  widget.historicomodel.pontoDeReferencia ?? 'Indisponível'),
               Padding(padding: EdgeInsets.only(top: 20)),
               builderText(text: 'Telefone'),
               Padding(padding: EdgeInsets.only(top: 10)),
-              builderTextField(hint: "(00)00000-0000"),
+              builderTextField(hint:  widget.historicomodel.telefone ?? 'Indisponível'),
               Padding(padding: EdgeInsets.only(top: 20)),
               builderText(text: 'Celular'),
               Padding(padding: EdgeInsets.only(top: 10)),
-              builderTextField(hint: "(00)00000-0000"),
+              builderTextField(hint:  widget.historicomodel.celular ?? 'Indisponível'),
               Padding(padding: EdgeInsets.only(top: 20)),
               builderText(text: 'Valor do pedido'),
               Padding(padding: EdgeInsets.only(top: 10)),
-              builderTextField(hint: "R\$00,00"),
+              builderTextField(hint: 'R\$'),
               Padding(padding: EdgeInsets.only(top: 20)),
               builderText(text: 'Valor da entrega'),
               Padding(padding: EdgeInsets.only(top: 10)),
